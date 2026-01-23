@@ -62,4 +62,4 @@ node ${CLAUDE_PLUGIN_ROOT}/dist/index.js configure minimal
 ### 4. Finish
 
 Print the success message:
-"✅ Cortex is ready! Restart Claude Code for the statusline to appear."
+"✅ Cortex is ready! Now restart Claude Code to enable memory tools."

@@ -809,7 +809,7 @@ async function handleSetup() {
   console.log('');
   console.log(`${ANSI.brick}Ψ${ANSI.reset} Setup complete!`);
   console.log('');
-  console.log(`${ANSI.yellow}Important: Restart Claude Code to activate the statusline${ANSI.reset}`);
+  console.log(`${ANSI.yellow}Now restart Claude Code to enable memory tools${ANSI.reset}`);
   console.log('');
   console.log('Commands available:');
   console.log('  /cortex:save     - Archive session context');
