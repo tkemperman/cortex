@@ -7,7 +7,7 @@
 import * as fs from 'fs';
 import * as readline from 'readline';
 import type { Database as SqlJsDatabase } from 'sql.js';
-import { insertMemory, contentExists, saveDb, insertTurn, getRecentTurns, upsertSessionSummary, getSessionProgress, updateSessionProgress, clearOldTurns } from './database.js';
+import { insertMemory, contentExists, saveDb, insertTurn, getRecentTurns, getRecentMemories, upsertSessionSummary, getSessionProgress, updateSessionProgress, clearOldTurns } from './database.js';
 import { embedBatch } from './embeddings.js';
 import { loadConfig } from './config.js';
 import { debug } from './logger.js';
@@ -864,13 +864,8 @@ export async function buildRestorationContext(
   const fragments: Array<{ content: string; timestamp: Date }> = [];
 
   if (fragmentsBudget > 100) {
-    // Import search functions dynamically to avoid circular dependency
-    const { searchByVector } = await import('./database.js');
-    const { embedQuery } = await import('./embeddings.js');
-
-    // Query for recent context
-    const queryEmbedding = await embedQuery('recent work summary context decisions');
-    const results = searchByVector(db, queryEmbedding, projectId, messageCount * 2);
+    // Get most recent memories by timestamp (not semantic similarity)
+    const results = getRecentMemories(db, projectId, messageCount);
 
     for (const result of results) {
       // Truncate to 300 chars for fragments
