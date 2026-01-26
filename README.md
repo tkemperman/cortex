@@ -83,7 +83,7 @@ To update Cortex to the latest version:
 
 **Step 1: Update the marketplace**
 ```
-/plugin marketplace update hjertefolger/cortex
+/plugin marketplace update cortex
 ```
 
 **Step 2: Update the plugin**
