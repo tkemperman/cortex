@@ -882,7 +882,14 @@ async function main() {
     if (!line.trim()) return;
 
     try {
-      const request = JSON.parse(line) as MCPRequest;
+      const message = JSON.parse(line);
+
+      // Notifications have no 'id' field and must not receive a response
+      if (message.id === undefined || message.id === null) {
+        return;
+      }
+
+      const request = message as MCPRequest;
       const response = await server.handleRequest(request);
       console.log(JSON.stringify(response));
     } catch (error) {

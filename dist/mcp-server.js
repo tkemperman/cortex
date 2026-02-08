@@ -8748,7 +8748,11 @@ async function main() {
     if (!line.trim())
       return;
     try {
-      const request = JSON.parse(line);
+      const message = JSON.parse(line);
+      if (message.id === void 0 || message.id === null) {
+        return;
+      }
+      const request = message;
       const response = await server.handleRequest(request);
       console.log(JSON.stringify(response));
     } catch (error) {
